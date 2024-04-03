@@ -860,7 +860,7 @@ var WGDDapp=(function(){
 		Laya.stage.screenMode="vertical";
 		Laya.stage.alignH="center";
 		Laya.stage.alignV="middle";
-		Laya.stage.bgColor=null;
+		Laya.stage.bgColor="#0a0a14";
 		Laya.stage.addChild(new MainScreen());
 	}
 
@@ -15197,19 +15197,18 @@ var HallScreen=(function(_super){
 		this.bottomMenu.size(Laya.stage.width,111);
 		this.addChild(this.bottomMenu);
 		this.bottomMenu.y=Laya.stage.height-this.bottomMenu.height;
-		this.bottomMenu.graphics.drawRect(0,0,Laya.stage.width,200,"#222335");
-		this.indexB=new MyIconButton("hall/tabbar_home_s_icon.png","Deposit",Laya.stage.width/3,100,22,"#999999");
+		this.indexB=new MyIconButton("../assets/ui/ic_Deposit2.png","Deposit",Laya.stage.width/3,100,22,"#999999");
 		this.bottomMenu.addChild(this.indexB);
 		this.indexB.y=5;
 		this.indexB.on("click",this,this.indexBHandler);
 		this.indexB.icon.gray=true;
-		this.teamB=new MyIconButton("hall/tabbar_zhi_s_icon.png","Team",Laya.stage.width/3,100,22,"#999999");
+		this.teamB=new MyIconButton("../assets/ui/ic_team2.png","Team",Laya.stage.width/3,100,22,"#999999");
 		this.bottomMenu.addChild(this.teamB);
 		this.teamB.x=this.indexB.x+this.indexB.width;
 		this.teamB.y=5;
 		this.teamB.on("click",this,this.teamBHandler);
 		this.teamB.icon.gray=true;
-		this.myB=new MyIconButton("hall/tabbar_my_s_icon.png","Mine",Laya.stage.width/3,100,22,"#999999");
+		this.myB=new MyIconButton("../assets/ui/ic_mine2.png","Mine",Laya.stage.width/3,100,22,"#999999");
 		this.bottomMenu.addChild(this.myB);
 		this.myB.x=this.teamB.x+this.teamB.width;
 		this.myB.y=5;
@@ -15277,28 +15276,27 @@ var IndexScreen=(function(_super){
 		this.NFTSSS_B=null;
 		IndexScreen.__super.call(this);
 		IndexScreen.instance=this;
-		var splishI=new Image("../assets/image/indexBg.jpg");
+		var splishI=new Image("../assets/ui/indexBg.png");
 		this.addChild(splishI);
-		splishI.size(Laya.stage.width,Laya.stage.height);
-		this.manage_B=new MyButton("管 理",300,60,"#FFFFFF","#FFFFFF",28,"cancel");
+		this.manage_B=new MyButton("管 理",300,60,"#FFFFFF","#FFFFFF",28,"");
 		this.addChild(this.manage_B);
-		this.manage_B.x=240;
-		this.manage_B.y=Laya.stage.height-300;
+		this.manage_B.x=225;
+		this.manage_B.y=50;
 		this.manage_B.on("click",this,this.manage_BHandler);
-		this.NFTS_B=new MyButton("铸造S",180,60,"#FFFFFF","#FFFFFF",28);
+		this.NFTS_B=new MyButton2("",216,106,"#FFFFFF","#FFFFFF",28,"../assets/ui/mints.png");
 		this.addChild(this.NFTS_B);
-		this.NFTS_B.x=50;
-		this.NFTS_B.y=Laya.stage.height-200;
+		this.NFTS_B.x=35;
+		this.NFTS_B.y=Laya.stage.height-300;
 		this.NFTS_B.on("click",this,this.NFTS_BHandler);
-		this.NFTSS_B=new MyButton("铸造SS",180,60,"#FFFFFF","#FFFFFF",28);
+		this.NFTSS_B=new MyButton2("",216,106,"#FFFFFF","#FFFFFF",28,"../assets/ui/mintss.png");
 		this.addChild(this.NFTSS_B);
-		this.NFTSS_B.x=280;
-		this.NFTSS_B.y=Laya.stage.height-200;
+		this.NFTSS_B.x=265;
+		this.NFTSS_B.y=Laya.stage.height-300;
 		this.NFTSS_B.on("click",this,this.NFTSS_BHandler);
-		this.NFTSSS_B=new MyButton("铸造SSS",180,60,"#FFFFFF","#FFFFFF",28);
+		this.NFTSSS_B=new MyButton2("",216,106,"#FFFFFF","#FFFFFF",28,"../assets/ui/mintsss.png");
 		this.addChild(this.NFTSSS_B);
-		this.NFTSSS_B.x=510;
-		this.NFTSSS_B.y=Laya.stage.height-200;
+		this.NFTSSS_B.x=495;
+		this.NFTSSS_B.y=Laya.stage.height-300;
 		this.NFTSSS_B.on("click",this,this.NFTSSS_BHandler);
 	}
 
@@ -15506,8 +15504,8 @@ var MyScreen=(function(_super){
 		com.cocoadd.my.MyScreen.instance.nftListPanel.update();
 	}
 
-	__proto.getPledgeOrderByIndexSuccess=function(allPriseNum,pledgeDay,lastGetPriseDay,havePriseNum,state){
-		var pledgeItem=new PledgeItem(allPriseNum,pledgeDay,lastGetPriseDay,havePriseNum,state);
+	__proto.getPledgeOrderByIndexSuccess=function(pledgeOrdersIndex,allPriseNum,pledgeDay,lastGetPriseDay,havePriseNum,state){
+		var pledgeItem=new PledgeItem(pledgeOrdersIndex,allPriseNum,pledgeDay,lastGetPriseDay,havePriseNum,state);
 		com.cocoadd.my.MyScreen.instance.addChild(pledgeItem);
 		pledgeItem.scaleY=BaseConfig.sc;
 		pledgeItem.x=com.cocoadd.my.MyScreen.instance.width-pledgeItem.width>>1;
@@ -15545,7 +15543,7 @@ var NftItem=(function(_super){
 		this.titleT=null;
 		this.stateT=null;
 		this.avtiveT=null;
-		this.couldPriseB=null;
+		this.getPriseB=null;
 		NftItem.__super.call(this);
 		this.size(330,400);
 		this.tokenId=tokenId;
@@ -15562,19 +15560,22 @@ var NftItem=(function(_super){
 		this.bg.size(330,400);
 		this.bg.alpha=0.7;
 		this.level=Number(this.url.replace("https://www.cdc1573.com/nft/nft","").replace(".json",""));
-		var nft=new Image("../assets/image/nft/"+this.level+".png");
+		var nft=new Image("../assets/ui/nft/"+this.level+".png");
 		this.addChild(nft);
 		nft.size(330,330);
 		nft.x=this.width-nft.width>>1;
 		nft.y=0;
-		this.couldPriseB=new MyButton("领 取",300,40,"#FFFFFF","#000000",24,"check");
-		this.addChild(this.couldPriseB);
-		this.couldPriseB.x=this.width-this.couldPriseB.width>>1;
-		this.couldPriseB.y=this.height-this.couldPriseB.height-10;
-		this.couldPriseB.on("click",this,this.couldPriseBHandler);
+		this.getPriseB=new MyButton("领 取",300,40,"#FFFFFF","#000000",24,"check");
+		this.addChild(this.getPriseB);
+		this.getPriseB.x=this.width-this.getPriseB.width>>1;
+		this.getPriseB.y=this.height-this.getPriseB.height-10;
+		this.getPriseB.on("click",this,this.getPriseBHandler);
 	}
 
-	__proto.couldPriseBHandler=function(){}
+	__proto.getPriseBHandler=function(){
+		getPriseNFT(this.tokenId);
+	}
+
 	return NftItem;
 })(Sprite)
 
@@ -15702,14 +15703,27 @@ var NftListPanel=(function(_super){
 
 //class com.cocoadd.my.PledgeItem extends laya.display.Sprite
 var PledgeItem=(function(_super){
-	function PledgeItem(allPriseNum,pledgeDay,lastGetPriseDay,havePriseNum,state){
+	function PledgeItem(pledgeOrdersIndex,allPriseNum,pledgeDay,lastGetPriseDay,havePriseNum,state){
 		this.bg=null;
 		this.allPriseNumT=null;
 		this.havePriseNumT=null;
 		this.couldPriseNumT=null;
 		this.couldPriseB=null;
+		this.pledgeOrdersIndex=NaN;
+		this.allPriseNum=NaN;
+		this.pledgeDay=NaN;
+		this.lastGetPriseDay=NaN;
+		this.havePriseNum=NaN;
+		this.state=NaN;
+		this.couldPriseNum=0;
 		PledgeItem.__super.call(this);
 		this.size(690,100);
+		this.pledgeOrdersIndex=Number(pledgeOrdersIndex);
+		this.allPriseNum=Number(allPriseNum);
+		this.pledgeDay=Number(pledgeDay);
+		this.lastGetPriseDay=Number(lastGetPriseDay);
+		this.havePriseNum=Number(havePriseNum);
+		this.state=Number(state);
 		this.bg=new Image("hall/bg.png");
 		this.bg.sizeGrid="20,20,20,20,0";
 		this.addChild(this.bg);
@@ -15726,26 +15740,59 @@ var PledgeItem=(function(_super){
 		this.addChild(this.allPriseNumT);
 		this.allPriseNumT.x=90;
 		this.allPriseNumT.y=40;
-		var havePriseNumT=new Text();
-		havePriseNumT.fontSize=26;
-		havePriseNumT.text="Released:"+Number(havePriseNum).toFixed(4);
-		havePriseNumT.color="#FFFFFF";
-		this.addChild(havePriseNumT);
-		havePriseNumT.x=230;
-		havePriseNumT.y=40;
-		var day=parseInt(new Date().getTime()/(1000*3600*24)+"");
-		var couldPriseNum=0;
-		if(lastGetPriseDay!=0){}
-			this.couldPriseB=new MyButton("领取:"+Number((day-lastGetPriseDay)*(allPriseNum*0.8/365)).toFixed(4),200,50,"#FFFFFF","#FFFFFF",24);
+		this.havePriseNumT=new Text();
+		this.havePriseNumT.fontSize=26;
+		this.havePriseNumT.text="Released:"+Number(havePriseNum).toFixed(4);
+		this.havePriseNumT.color="#FFFFFF";
+		this.addChild(this.havePriseNumT);
+		this.havePriseNumT.x=230;
+		this.havePriseNumT.y=40;
+		this.couldPriseB=new MyButton("",200,50,"#FFFFFF","#FFFFFF",24);
 		this.addChild(this.couldPriseB);
 		this.couldPriseB.x=480;
 		this.couldPriseB.y=this.height-this.couldPriseB.height>>1;
 		this.couldPriseB.on("click",this,this.couldPriseBHandler);
+		this.couldPriseB.visible=false;
+		getStartDay(this);
 	}
 
 	__class(PledgeItem,'com.cocoadd.my.PledgeItem',_super);
 	var __proto=PledgeItem.prototype;
-	__proto.couldPriseBHandler=function(){}
+	__proto.couldPriseBHandler=function(){
+		MainScreen.instance.showBusy();
+		getPrisePledge(this,this.pledgeOrdersIndex);
+	}
+
+	__proto.getStartDaySuccess=function(obj,num){
+		obj.couldPriseB.visible=true;
+		if(num==0){
+			this.couldPriseB.titleT.text="未开放";
+			}else{
+			if(obj.lastGetPriseDay==0){
+				obj.lastGetPriseDay=num;
+			};
+			var day=parseInt(new Date().getTime()/(60000)+"");
+			this.couldPriseNum=0;
+			if(Number(obj.state)==0){
+				this.couldPriseNum=Number((day-obj.lastGetPriseDay)*(obj.allPriseNum*0.8/365));
+			}
+			if(this.couldPriseNum>(this.allPriseNum-this.havePriseNum)){
+				this.couldPriseNum=this.allPriseNum-this.havePriseNum;
+			}
+			obj.couldPriseB.titleT.text="领取:"+this.couldPriseNum.toFixed(4);
+		}
+	}
+
+	__proto.getPriseSuccess=function(){
+		MainScreen.instance.hideBusy();
+		this.havePriseNumT.text="Released:"+Number(this.havePriseNum+this.couldPriseNum).toFixed(4);
+		this.couldPriseB.titleT.text="领取:0.0000";
+	}
+
+	__proto.hideBusy=function(){
+		MainScreen.instance.hideBusy();
+	}
+
 	return PledgeItem;
 })(Sprite)
 
@@ -15753,45 +15800,46 @@ var PledgeItem=(function(_super){
 //class com.cocoadd.team.LevelInfo extends laya.display.Sprite
 var LevelInfo=(function(_super){
 	function LevelInfo(){
-		this.parentAddressT=null;
 		this.levelT=null;
-		this.invitURLT=null;
+		this.accountT=null;
 		this.copyB=null;
-		this.stateT=null;
-		this.allSonPledgeNumT=null;
 		LevelInfo.__super.call(this);
 		this.size(Laya.stage.width-40,160);
-		var bg=new Image("hall/bg.png");
-		bg.sizeGrid="20,20,20,20,0";
+		var bg=new Image("../assets/ui/LevelInfoBg.png");
 		this.addChild(bg);
 		bg.size(this.width,this.height);
-		bg.alpha=0.7;
-		this.parentAddressT=new Text();
-		this.parentAddressT.text="Superior:";
-		this.addChild(this.parentAddressT);
-		this.parentAddressT.x=20;
-		this.parentAddressT.y=20;
-		this.parentAddressT.fontSize=22;
-		this.parentAddressT.color="#A2A3BB";
-		this.invitURLT=new Text();
-		this.invitURLT.text="Invite:";
-		this.addChild(this.invitURLT);
-		this.invitURLT.x=20;
-		this.invitURLT.y=60;
-		this.invitURLT.fontSize=24;
-		this.invitURLT.color="#A2A3BB";
-		this.copyB=new MyButton("COPY",100,50,"#f1f1f1","#FEFEFE",26);
+		this.x=this.stage.width-bg.width>>1;
+		this.levelT=new Text();
+		this.levelT.text="Level:";
+		this.addChild(this.levelT);
+		this.levelT.x=155;
+		this.levelT.y=50;
+		this.levelT.fontSize=24;
+		this.levelT.color="#ffffff";
+		this.accountT=new Text();
+		this.accountT.text=PlayerData.account.substr(0,8)+"..."+PlayerData.account.substr(PlayerData.account.length-8,8);
+		this.addChild(this.accountT);
+		this.accountT.x=155;
+		this.accountT.y=90;
+		this.accountT.fontSize=24;
+		this.accountT.color="#ffffff";
+		this.copyB=new MyButton2("",242,65,"#f1f1f1","#FEFEFE",26,"../assets/ui/bt_invite.png");
 		this.addChild(this.copyB);
-		this.copyB.x=590;
-		this.copyB.y=80;
+		this.copyB.x=450;
+		this.copyB.y=60;
 		this.addLayaCanvasClick();
+		var account=PlayerData.account;
+		getLevel(this,account);
 	}
 
 	__class(LevelInfo,'com.cocoadd.team.LevelInfo',_super);
 	var __proto=LevelInfo.prototype;
-	// }
+	__proto.getLevelSuccess=function(obj,num){
+		obj.levelT.text="Level:"+num;
+	}
+
 	__proto.ruleBtnHandler=function(){
-		var text="http://www.agc-token.com/h5/index.html?p="+PlayerData.account;
+		var text="https://www.wgd000.com/h5/index.html?p="+PlayerData.account;
 		if(this.copyB.hitTestPoint(Laya.stage.mouseX,Laya.stage.mouseY)){
 			Utils.copyToClipBoard(text);MainScreen.instance.showFlutter("copy success！");
 		}
@@ -15837,40 +15885,34 @@ var SonItem=(function(_super){
 		this.teamDefiiNum=0;
 		this.selfCurrAllPledgeAmount=0;
 		SonItem.__super.call(this);
-		this.size(Laya.stage.width-40,150);
+		this.size(Laya.stage.width-40,200);
 		this.playerAddress=playerAddress;
 		SonItem.instance=this;
-		var bg=new Image("hall/bg.png");
-		bg.sizeGrid="20,20,20,20,0";
+		var bg=new Image("../assets/ui/sonItemBg.png");
 		this.addChild(bg);
 		bg.size(this.width,this.height);
-		bg.alpha=0.7;
-		var icon=new Image("hall/my_list_zhiya_icon.png");
-		this.addChild(icon);
-		icon.x=20;
-		icon.y=30;
 		this.pledgeOrderIndexT=new Text();
 		this.pledgeOrderIndexT.fontSize=22;
 		this.pledgeOrderIndexT.color="#eeeff7";
 		this.pledgeOrderIndexT.text=playerAddress;
 		this.pledgeOrderIndexT.bold=true;
 		this.addChild(this.pledgeOrderIndexT);
-		this.pledgeOrderIndexT.x=70;
-		this.pledgeOrderIndexT.y=35;
+		this.pledgeOrderIndexT.x=80;
+		this.pledgeOrderIndexT.y=30;
 		this.levelT=new Text();
 		this.levelT.fontSize=22;
 		this.levelT.text="Level:0";
 		this.levelT.color="#A2A3BB";
 		this.addChild(this.levelT);
-		this.levelT.x=70;
+		this.levelT.x=80;
 		this.levelT.y=100;
 		this.teamPledgeT=new Text();
 		this.teamPledgeT.fontSize=22;
 		this.teamPledgeT.text="Total Team Performance:0";
 		this.teamPledgeT.color="#A2A3BB";
 		this.addChild(this.teamPledgeT);
-		this.teamPledgeT.x=200;
-		this.teamPledgeT.y=100;
+		this.teamPledgeT.x=80;
+		this.teamPledgeT.y=150;
 		this.update();
 	}
 
@@ -15878,13 +15920,13 @@ var SonItem=(function(_super){
 	var __proto=SonItem.prototype;
 	// this.on(Event.CLICK,this,ClickHandler);
 	__proto.update=function(){
-		getLevel(this.playerAddress,this.getLevelSuccess);
-		getSelfDefiiNum(this.playerAddress,this);
-		getTeamDefiiNum(this.playerAddress,this);
+		getLevel(this,this.playerAddress);
+		getSelfDefiiNum(this,this.playerAddress);
+		getTeamDefiiNum(this,this.playerAddress);
 	}
 
-	__proto.getLevelSuccess=function(num){
-		com.cocoadd.team.SonItem.instance.levelT.text="Level:"+num;
+	__proto.getLevelSuccess=function(obj,num){
+		obj.text="Level:"+num;
 	}
 
 	__proto.getSelfDefiiNumSuccess=function(obj,num){
@@ -15909,9 +15951,10 @@ var TeamScreen=(function(_super){
 		TeamScreen.__super.call(this);
 		TeamScreen.instance=this;
 		this.size(Laya.stage.width,Laya.stage.height);
-		this.graphics.drawRect(0,0,this.width,this.height,"#000000");
-		var bgImg=new Image("hall/bg5.png");
-		this.addChild(bgImg);
+		var levelInfo=new LevelInfo();
+		this.addChild(levelInfo);
+		levelInfo.x=this.width-levelInfo.width>>1;
+		levelInfo.y=20;
 		this.content=new Panel();
 		this.content.size(Laya.stage.width-40,Laya.stage.height-300);
 		this.addChild(this.content);
@@ -15919,11 +15962,7 @@ var TeamScreen=(function(_super){
 		this.content.vScrollBar.visible=false;
 		this.content.vScrollBar.elasticDistance=300;
 		this.content.x=20;
-		this.content.y=20;
-		var levelInfo=new LevelInfo();
-		this.addChild(levelInfo);
-		levelInfo.x=this.width-levelInfo.width>>1;
-		levelInfo.y=this.content.y+this.content.height;
+		this.content.y=levelInfo.y+levelInfo.height+20;
 		this.update(PlayerData.account);
 	}
 
@@ -15993,6 +16032,48 @@ var MyButton=(function(_super){
 	}
 
 	return MyButton;
+})(Sprite)
+
+
+//class com.component.MyButton2 extends laya.display.Sprite
+var MyButton2=(function(_super){
+	function MyButton2(title,width,height,bgColor,titleColor,fontSize,bgUrl){
+		this.titleT=null;
+		this.titleColor=null;
+		this.bg=null;
+		MyButton2.__super.call(this);
+		(fontSize===void 0)&& (fontSize=26);
+		(bgUrl===void 0)&& (bgUrl="");
+		this.size(width,height);
+		this.titleColor=titleColor;
+		this.bg=new Image(bgUrl);
+		this.bg.sizeGrid="20,20,20,20,0";
+		this.bg.size(width,height);
+		this.addChild(this.bg);
+		this.titleT=new Text();
+		this.addChild(this.titleT);
+		this.titleT.size(width,height);
+		this.titleT.text=title;
+		this.titleT.color=titleColor;
+		this.titleT.fontSize=fontSize;
+		this.titleT.align="center";
+		this.titleT.valign="middle";
+		this.titleT.y=(height-this.titleT.height)/2;
+	}
+
+	__class(MyButton2,'com.component.MyButton2',_super);
+	var __proto=MyButton2.prototype;
+	__proto.selected=function(){
+		this.titleT.color="#FFFFFF";
+		this.bg.visible=true;
+	}
+
+	__proto.unSelected=function(){
+		this.titleT.color=this.titleColor;
+		this.bg.visible=false;
+	}
+
+	return MyButton2;
 })(Sprite)
 
 
@@ -16078,10 +16159,12 @@ var UiLoading=(function(_super){
 		UiLoading.__super.call(this);
 		this.progressBarI
 		this.size(this.stage.width,this.stage.height);
+		var splishI=new Image("../assets/ui/splish.png");
+		this.addChild(splishI);
 		this.progressbgI=new Image("../assets/ui/loading_bg.png");
 		this.addChild(this.progressbgI);
 		this.progressbgI.x=(750-360)/2;
-		this.progressbgI.y=956+(108-14)/2;
+		this.progressbgI.y=1400;
 		this.progressBarI=new Image("../assets/ui/loading.png");
 		this.progressBarI.size(360,14);
 		this.progressBarI.sizeGrid="0,30,0,30";
