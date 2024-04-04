@@ -15325,7 +15325,7 @@ var IndexScreen=(function(_super){
 
 	__proto.mintSuccess=function(){
 		this.hideBusy();
-		MainScreen.instance.showFlutter("铸造成功！");
+		MainScreen.instance.showAlert("铸造成功！");
 	}
 
 	__proto.hideBusy=function(){
@@ -15545,7 +15545,7 @@ var NftItem=(function(_super){
 		this.avtiveT=null;
 		this.getPriseB=null;
 		NftItem.__super.call(this);
-		this.size(330,400);
+		this.size(323,400);
 		this.tokenId=tokenId;
 		this.url=url;
 		this.init();
@@ -15554,18 +15554,19 @@ var NftItem=(function(_super){
 	__class(NftItem,'com.cocoadd.my.NftItem',_super);
 	var __proto=NftItem.prototype;
 	__proto.init=function(){
-		this.bg=new Image("hall/bg.png");
-		this.bg.sizeGrid="20,20,20,20,1";
+		this.bg=new Image("../assets/ui/nft/nft_bg.png");
 		this.addChild(this.bg);
-		this.bg.size(330,400);
-		this.bg.alpha=0.7;
 		this.level=Number(this.url.replace("https://www.cdc1573.com/nft/nft","").replace(".json",""));
+		var levelI=new Image("../assets/ui/nft/level_"+this.level+".png");
+		this.addChild(levelI);
+		levelI.x=0;
+		levelI.y=0;
 		var nft=new Image("../assets/ui/nft/"+this.level+".png");
 		this.addChild(nft);
 		nft.size(330,330);
 		nft.x=this.width-nft.width>>1;
-		nft.y=0;
-		this.getPriseB=new MyButton("领 取",300,40,"#FFFFFF","#000000",24,"check");
+		nft.y=30;
+		this.getPriseB=new MyButton2("领 取",299,46,"#FFFFFF","#000000",24,"../assets/ui/nft/getPriseB.png");
 		this.addChild(this.getPriseB);
 		this.getPriseB.x=this.width-this.getPriseB.width>>1;
 		this.getPriseB.y=this.height-this.getPriseB.height-10;
@@ -15724,13 +15725,10 @@ var PledgeItem=(function(_super){
 		this.lastGetPriseDay=Number(lastGetPriseDay);
 		this.havePriseNum=Number(havePriseNum);
 		this.state=Number(state);
-		this.bg=new Image("hall/bg.png");
-		this.bg.sizeGrid="20,20,20,20,0";
+		this.bg=new Image("../assets/ui/pledgeItem_bg.png");
 		this.addChild(this.bg);
-		this.bg.size(this.width,this.height);
-		this.bg.alpha=BaseConfig.bgalpha;
 		var icon=new Image("hall/zhi_yue_icon.png");
-		icon.x=32;
+		icon.x=20;
 		icon.y=30;
 		this.addChild(icon);
 		this.allPriseNumT=new Text();
@@ -15738,14 +15736,14 @@ var PledgeItem=(function(_super){
 		this.allPriseNumT.text="Lock:"+allPriseNum;
 		this.allPriseNumT.color="#FFFFFF";
 		this.addChild(this.allPriseNumT);
-		this.allPriseNumT.x=90;
+		this.allPriseNumT.x=80;
 		this.allPriseNumT.y=40;
 		this.havePriseNumT=new Text();
 		this.havePriseNumT.fontSize=26;
 		this.havePriseNumT.text="Released:"+Number(havePriseNum).toFixed(4);
 		this.havePriseNumT.color="#FFFFFF";
 		this.addChild(this.havePriseNumT);
-		this.havePriseNumT.x=230;
+		this.havePriseNumT.x=220;
 		this.havePriseNumT.y=40;
 		this.couldPriseB=new MyButton("",200,50,"#FFFFFF","#FFFFFF",24);
 		this.addChild(this.couldPriseB);
@@ -16047,7 +16045,6 @@ var MyButton2=(function(_super){
 		this.size(width,height);
 		this.titleColor=titleColor;
 		this.bg=new Image(bgUrl);
-		this.bg.sizeGrid="20,20,20,20,0";
 		this.bg.size(width,height);
 		this.addChild(this.bg);
 		this.titleT=new Text();
@@ -16264,7 +16261,7 @@ var MainScreen=(function(_super){
 		this.alertTitle.align="center";
 		this.alertTitle.text="----------";
 		this.alertTitle.x=(this.alert.width-this.alertTitle.width)/2;
-		this.alertTitle.y=80;
+		this.alertTitle.y=300;
 		this.input_bg=new Image("hall/jifen_input_bg.png");
 		this.input_bg.visible=false;
 		this.input_bg.sizeGrid="20,20,20,20,0"
@@ -16288,7 +16285,7 @@ var MainScreen=(function(_super){
 		this.alertOkB=new MyButton("确  定",200,60,"#333333","#ffffff",32);
 		this.alert.addChild(this.alertOkB);
 		this.alertOkB.x=(this.alert.width-this.alertOkB.width)/2;
-		this.alertOkB.y=this.alert.height-this.alertOkB.height-30;
+		this.alertOkB.y=350;
 		this.alertCancelB=new MyButton("取 消",200,60,"#333333","#ffffff",32,"cancel");
 		this.alert.addChild(this.alertCancelB);
 		this.alertCancelB.visible=false;
@@ -16329,8 +16326,13 @@ var MainScreen=(function(_super){
 		this.alertCancelB.visible=false;
 		this.input_bg.visible=false;
 		this.alertInput.visible=false;
-		this.alert.graphics.drawRect(0,0,this.popL.width*0.8,300,"#aff53e","#e2a420");
-		this.alertTitle.color="#333333";
+		this.alert.graphics.drawRect(0,0,this.popL.width*0.8,450,"#101221","#2e356c");
+		this.alertTitle.color="#ffffff";
+		var img=new Image("../assets/ui/ic_success.png");
+		this.alert.addChild(img);
+		img.y=10;
+		img.x=this.alert.width-300>>1;
+		this.alertTitle.bold=true;
 		this.alertOkB.x=(this.alert.width-this.alertOkB.width)/2;
 		this.alertTitle.text=content;
 		this.alertOkFun=alertOkFun;
