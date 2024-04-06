@@ -16009,7 +16009,7 @@ var TeamScreen=(function(_super){
 		for (var i=0;i < arr.length;i++){
 			var sonItem=new SonItem(arr[i]);
 			com.cocoadd.team.TeamScreen.instance.content.addChild(sonItem);
-			sonItem.y=i*170;
+			sonItem.y=i*220;
 		}
 	}
 
