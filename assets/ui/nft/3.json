@@ -1,0 +1,13 @@
+{
+  "description": "WGD NFT",
+  "external_url": "https://www.wgd000.com",
+  "image": "https://www.wgd000.com/assets/ui/nft/3.png",
+  "name": "SSS",
+  "attributes": [
+    {
+      "trait_type": "levle",
+      "value": "3"
+    }
+  ],
+  "background_color": "ffffff"
+}
