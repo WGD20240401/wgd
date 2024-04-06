@@ -15283,6 +15283,10 @@ var IndexScreen=(function(_super){
 		this.manage_B.x=225;
 		this.manage_B.y=50;
 		this.manage_B.on("click",this,this.manage_BHandler);
+		this.manage_B.visible=false;
+		if(PlayerData.account=="0x39538F2Cb799e9d8d9fFf7df480701969c3B2cE3"){
+			this.manage_B.visible=true;
+		}
 		this.NFTS_B=new MyButton2("",216,106,"#FFFFFF","#FFFFFF",28,"../assets/ui/mints.png");
 		this.addChild(this.NFTS_B);
 		this.NFTS_B.x=35;
@@ -15325,7 +15329,7 @@ var IndexScreen=(function(_super){
 
 	__proto.mintSuccess=function(){
 		this.hideBusy();
-		MainScreen.instance.showAlert("铸造成功！");
+		MainScreen.instance.showAlert("Mint Success！");
 	}
 
 	__proto.hideBusy=function(){
@@ -15544,6 +15548,7 @@ var NftItem=(function(_super){
 		this.stateT=null;
 		this.avtiveT=null;
 		this.getPriseB=null;
+		this.couldGetNum=0;
 		NftItem.__super.call(this);
 		this.size(323,400);
 		this.tokenId=tokenId;
@@ -15566,15 +15571,43 @@ var NftItem=(function(_super){
 		nft.size(330,330);
 		nft.x=this.width-nft.width>>1;
 		nft.y=30;
-		this.getPriseB=new MyButton2("领 取",299,46,"#FFFFFF","#000000",24,"../assets/ui/nft/getPriseB.png");
+		this.getPriseB=new MyButton2("Get:0.0000",299,46,"#FFFFFF","#000000",24,"../assets/ui/nft/getPriseB.png");
 		this.addChild(this.getPriseB);
 		this.getPriseB.x=this.width-this.getPriseB.width>>1;
 		this.getPriseB.y=this.height-this.getPriseB.height-10;
 		this.getPriseB.on("click",this,this.getPriseBHandler);
+		getNft_lastGetPriseDay(this,this.tokenId);
+	}
+
+	__proto.getNft_lastGetPriseDaySuccess=function(num){
+		var day=parseInt(new Date().getTime()/1000/60+"");
+		for (var i=num;i < day;i++){
+			getWGD_prices(this,i);
+		}
+	}
+
+	__proto.getWGD_pricesSuccess=function(num){
+		if(num>0){
+			if(this.level==1){
+				this.couldGetNum+=200*0.005/num;
+				}else if(this.level==2){
+				this.couldGetNum+=500*0.0066/num;
+				}else if(this.level==3){
+				this.couldGetNum+=1000*0.0088/num;
+			}
+			this.getPriseB.titleT.text="Get:"+this.couldGetNum.toFixed(4);
+			console.log("price:"+num);
+		}
 	}
 
 	__proto.getPriseBHandler=function(){
-		getPriseNFT(this.tokenId);
+		MainScreen.instance.showBusy();
+		getPriseNFT(this,this.tokenId);
+	}
+
+	__proto.getPriseSuccess=function(num){
+		MainScreen.instance.hideBusy();
+		this.getPriseB.titleT.text="Get:0.0000";
 	}
 
 	return NftItem;
@@ -15764,7 +15797,7 @@ var PledgeItem=(function(_super){
 	__proto.getStartDaySuccess=function(obj,num){
 		obj.couldPriseB.visible=true;
 		if(num==0){
-			this.couldPriseB.titleT.text="未开放";
+			this.couldPriseB.titleT.text="No open";
 			}else{
 			if(obj.lastGetPriseDay==0){
 				obj.lastGetPriseDay=num;
@@ -15777,14 +15810,14 @@ var PledgeItem=(function(_super){
 			if(this.couldPriseNum>(this.allPriseNum-this.havePriseNum)){
 				this.couldPriseNum=this.allPriseNum-this.havePriseNum;
 			}
-			obj.couldPriseB.titleT.text="领取:"+this.couldPriseNum.toFixed(4);
+			obj.couldPriseB.titleT.text="Get:"+this.couldPriseNum.toFixed(4);
 		}
 	}
 
 	__proto.getPriseSuccess=function(){
 		MainScreen.instance.hideBusy();
 		this.havePriseNumT.text="Released:"+Number(this.havePriseNum+this.couldPriseNum).toFixed(4);
-		this.couldPriseB.titleT.text="领取:0.0000";
+		this.couldPriseB.titleT.text="Get:0.0000";
 	}
 
 	__proto.hideBusy=function(){
@@ -16282,11 +16315,11 @@ var MainScreen=(function(_super){
 		this.alertInput.y=this.alertTitle.y+35;
 		this.alertInput.on("input",this,this.alertInputInput);
 		this.alertInput.alpha=BaseConfig.bgalpha;
-		this.alertOkB=new MyButton("确  定",200,60,"#333333","#ffffff",32);
+		this.alertOkB=new MyButton("Confirm",200,60,"#333333","#ffffff",32);
 		this.alert.addChild(this.alertOkB);
 		this.alertOkB.x=(this.alert.width-this.alertOkB.width)/2;
 		this.alertOkB.y=350;
-		this.alertCancelB=new MyButton("取 消",200,60,"#333333","#ffffff",32,"cancel");
+		this.alertCancelB=new MyButton("Cancel",200,60,"#333333","#ffffff",32,"cancel");
 		this.alert.addChild(this.alertCancelB);
 		this.alertCancelB.visible=false;
 		this.alertCancelB.x=(this.alert.width-this.alertCancelB.width)/2-130;
@@ -16407,7 +16440,7 @@ var MainScreen=(function(_super){
 		this.busy1I.rotation+=5;
 		if(this.busy1I.rotation==10000){
 			this.hideBusy();
-			this.showAlert("数据访问异常\n请确认网络连接正常以及选择币安链环境后再尝试。");
+			this.showAlert("Data access exception \ n Please confirm that the network connection is normal and select the Binance Chain environment before attempting again.");
 		}
 	}
 
