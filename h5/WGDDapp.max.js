@@ -15969,7 +15969,7 @@ var SonItem=(function(_super){
 	}
 
 	__proto.getLevelSuccess=function(obj,num){
-		obj.text="Level:"+num;
+		obj.levelT.text="Level:"+num;
 	}
 
 	__proto.getSelfDefiiNumSuccess=function(obj,num){
