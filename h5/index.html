@@ -318,6 +318,16 @@
 		});
     }
     
+    async function getNft_pledgeDay(obj,tokenId){
+    	WGDNFTDefiiContract.methods.nft_pledgeDay(tokenId).call(null,function(error, result){
+    		if(error==null){
+    			obj.getNft_pledgeDaySuccess(result);
+    		}else{
+    			alert('Data acquisition failed, refresh and re-enter the page.');
+    		}
+		});
+    }
+    
     async function getNft_lastGetPriseDay(obj,tokenId){
     	WGDNFTDefiiContract.methods.nft_lastGetPriseDay(tokenId).call(null,function(error, result){
     		if(error==null){

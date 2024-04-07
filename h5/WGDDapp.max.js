@@ -15548,6 +15548,7 @@ var NftItem=(function(_super){
 		this.stateT=null;
 		this.avtiveT=null;
 		this.getPriseB=null;
+		this.pledgeDay=0;
 		this.couldGetNum=0;
 		NftItem.__super.call(this);
 		this.size(323,400);
@@ -15561,7 +15562,7 @@ var NftItem=(function(_super){
 	__proto.init=function(){
 		this.bg=new Image("../assets/ui/nft/nft_bg.png");
 		this.addChild(this.bg);
-		this.level=Number(this.url.replace("https://www.cdc1573.com/nft/nft","").replace(".json",""));
+		this.level=Number(this.url.replace("https://www.wgd000.com/assets/ui/nft/","").replace(".json",""));
 		var levelI=new Image("../assets/ui/nft/level_"+this.level+".png");
 		this.addChild(levelI);
 		levelI.x=0;
@@ -15576,27 +15577,38 @@ var NftItem=(function(_super){
 		this.getPriseB.x=this.width-this.getPriseB.width>>1;
 		this.getPriseB.y=this.height-this.getPriseB.height-10;
 		this.getPriseB.on("click",this,this.getPriseBHandler);
+		getNft_pledgeDay(this,this.tokenId);
+	}
+
+	__proto.getNft_pledgeDaySuccess=function(num){
+		this.pledgeDay=num;
 		getNft_lastGetPriseDay(this,this.tokenId);
 	}
 
 	__proto.getNft_lastGetPriseDaySuccess=function(num){
 		var day=parseInt(new Date().getTime()/1000/60+"");
+		if(day-this.pledgeDay>360){
+			day=Number(this.pledgeDay)+360;
+		}
+		if(day==num){
+			this.getPriseB.titleT.text="Finish";
+		}
 		for (var i=num;i < day;i++){
 			getWGD_prices(this,i);
 		}
 	}
 
-	__proto.getWGD_pricesSuccess=function(num){
-		if(num>0){
+	__proto.getWGD_pricesSuccess=function(price){
+		if(price>0){
+			console.log("price:"+price);
 			if(this.level==1){
-				this.couldGetNum+=200*0.005/num;
+				this.couldGetNum+=200*0.005/price;
 				}else if(this.level==2){
-				this.couldGetNum+=500*0.0066/num;
+				this.couldGetNum+=500*0.0066/price;
 				}else if(this.level==3){
-				this.couldGetNum+=1000*0.0088/num;
+				this.couldGetNum+=1000*0.0088/price;
 			}
 			this.getPriseB.titleT.text="Get:"+this.couldGetNum.toFixed(4);
-			console.log("price:"+num);
 		}
 	}
 
