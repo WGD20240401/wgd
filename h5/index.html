@@ -143,55 +143,69 @@
     
     //-----------------------------------------------------------------------------------------
     async function mint(parentAddress,usdtAmount){
-    	let amount = web3.utils.toWei(usdtAmount+'', 'ether');
-    
-	    USDTContract.methods.balanceOf(accountValue).call(null,function(error, result){
+    	WGDNFTDefiiContract.methods.parentPlayer(accountValue).call(null,function(error, result){
     		if(error==null){
-    			if(web3.utils.fromWei(result, 'ether')<usdtAmount){
-    				alert('Your current account is less than '+usdtAmount+' USDT');
-    				com.cocoadd.my.MyScreen.prototype.hideBusy();
-    			}else{
-    				USDTContract.methods.allowance(accountValue,WGDNFTDefiiAddress).call(null,function(error, result){
-			    		if(error==null){
-			    			if(result==amount){
-			    				WGDNFTDefiiContract.methods.mint(parentAddress,amount).send({from: accountValue})
-						    	.once('receipt', function(receipt){
-									//alert('success');
-									com.cocoadd.index.IndexScreen.prototype.mintSuccess();
-									
-								})
-								.on('error', function(error){
-									alert(error.message);
-									com.cocoadd.my.MyScreen.prototype.hideBusy();
-								});
-			    			}else{
-			    				USDTContract.methods.approve(WGDNFTDefiiAddress,amount).send({from: accountValue})
-						    	.once('receipt', function(receipt){
-									WGDNFTDefiiContract.methods.mint(parentAddress,amount).send({from: accountValue})
-							    	.once('receipt', function(receipt){
-										//alert('success');
-										com.cocoadd.index.IndexScreen.prototype.mintSuccess();
-										
-									})
-									.on('error', function(error){
-										alert(error.message);
-										com.cocoadd.my.MyScreen.prototype.hideBusy();
-									});
-								})
-								.on('error', function(error){
-									alert(error.message);
-									com.cocoadd.my.MyScreen.prototype.hideBusy();
-								});
-			    			}
-						}else{
-							alert(error);
-						}
-					});
+    			if(result!='0x0000000000000000000000000000000000000000'){
+    				parentAddress = result;
     			}
-    		}else{
-    			alert(error);
-    		}
+    			
+    			
+    			let amount = web3.utils.toWei(usdtAmount+'', 'ether');
+    
+			    USDTContract.methods.balanceOf(accountValue).call(null,function(error, result){
+		    		if(error==null){
+		    			if(web3.utils.fromWei(result, 'ether')<usdtAmount){
+		    				alert('Your current account is less than '+usdtAmount+' USDT');
+		    				com.cocoadd.my.MyScreen.prototype.hideBusy();
+		    			}else{
+		    				USDTContract.methods.allowance(accountValue,WGDNFTDefiiAddress).call(null,function(error, result){
+					    		if(error==null){
+					    			if(result==amount){
+					    				WGDNFTDefiiContract.methods.mint(parentAddress,amount).send({from: accountValue})
+								    	.once('receipt', function(receipt){
+											//alert('success');
+											com.cocoadd.index.IndexScreen.prototype.mintSuccess();
+											
+										})
+										.on('error', function(error){
+											alert(error.message);
+											com.cocoadd.my.MyScreen.prototype.hideBusy();
+										});
+					    			}else{
+					    				USDTContract.methods.approve(WGDNFTDefiiAddress,amount).send({from: accountValue})
+								    	.once('receipt', function(receipt){
+											WGDNFTDefiiContract.methods.mint(parentAddress,amount).send({from: accountValue})
+									    	.once('receipt', function(receipt){
+												//alert('success');
+												com.cocoadd.index.IndexScreen.prototype.mintSuccess();
+												
+											})
+											.on('error', function(error){
+												alert(error.message);
+												com.cocoadd.my.MyScreen.prototype.hideBusy();
+											});
+										})
+										.on('error', function(error){
+											alert(error.message);
+											com.cocoadd.my.MyScreen.prototype.hideBusy();
+										});
+					    			}
+								}else{
+									alert(error);
+								}
+							});
+		    			}
+		    		}else{
+		    			alert(error);
+		    		}
+				});
+    			
+    			
+			}else{
+				alert(error);
+			}
 		});
+    	
     }
     
     //-----------------------------------------------------------------------------------------
