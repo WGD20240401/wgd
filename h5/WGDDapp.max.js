@@ -15284,7 +15284,7 @@ var IndexScreen=(function(_super){
 		this.manage_B.y=50;
 		this.manage_B.on("click",this,this.manage_BHandler);
 		this.manage_B.visible=false;
-		if(PlayerData.account.toLocaleLowerCase()=="0x39538F2Cb799e9d8d9fFf7df480701969c3B2cE3".toLocaleLowerCase()){
+		if(PlayerData.account.toLocaleLowerCase()=="0x9CE977df703EEbb3377A186EBbE76b4C367c5633".toLocaleLowerCase()){
 			this.manage_B.visible=true;
 		}
 		this.NFTS_B=new MyButton2("",216,106,"#FFFFFF","#FFFFFF",28,"../assets/ui/mints.png");
