@@ -15180,102 +15180,15 @@ var WebAudioSoundChannel=(function(_super){
 })(SoundChannel)
 
 
-//class com.cocoadd.HallScreen extends laya.display.Sprite
-var HallScreen=(function(_super){
-	function HallScreen(){
-		this.contentL=null;
-		this.bottomMenu=null;
-		this.indexB=null;
-		this.teamB=null;
-		this.myB=null;
-		HallScreen.__super.call(this);
-		HallScreen.instance=this;
-		this.contentL=new Sprite();
-		this.contentL.size(Laya.stage.width,Laya.stage.height*BaseConfig.sc-100);
-		this.addChild(this.contentL);
-		this.bottomMenu=new Sprite();
-		this.bottomMenu.size(Laya.stage.width,111);
-		this.addChild(this.bottomMenu);
-		this.bottomMenu.y=Laya.stage.height-this.bottomMenu.height;
-		this.indexB=new MyIconButton("../assets/ui/ic_Deposit2.png","Deposit",Laya.stage.width/3,100,22,"#999999");
-		this.bottomMenu.addChild(this.indexB);
-		this.indexB.y=5;
-		this.indexB.on("click",this,this.indexBHandler);
-		this.indexB.icon.gray=true;
-		this.teamB=new MyIconButton("../assets/ui/ic_team2.png","Team",Laya.stage.width/3,100,22,"#999999");
-		this.bottomMenu.addChild(this.teamB);
-		this.teamB.x=this.indexB.x+this.indexB.width;
-		this.teamB.y=5;
-		this.teamB.on("click",this,this.teamBHandler);
-		this.teamB.icon.gray=true;
-		this.myB=new MyIconButton("../assets/ui/ic_mine2.png","Mine",Laya.stage.width/3,100,22,"#999999");
-		this.bottomMenu.addChild(this.myB);
-		this.myB.x=this.teamB.x+this.teamB.width;
-		this.myB.y=5;
-		this.myB.on("click",this,this.myBHandler);
-		this.myB.icon.gray=true;
-		this.indexBHandler();
-	}
-
-	__class(HallScreen,'com.cocoadd.HallScreen',_super);
-	var __proto=HallScreen.prototype;
-	__proto.indexBHandler=function(){
-		MainScreen.instance.popL.visible=false;
-		this.contentL.removeChildren();
-		var indexScreen=new IndexScreen();
-		this.contentL.addChild(indexScreen);
-		this.indexB.icon.gray=false;
-		this.teamB.icon.gray=true;
-		this.myB.icon.gray=true;
-		this.indexB.selected();
-		this.teamB.unSelected();
-		this.myB.unSelected();
-	}
-
-	__proto.teamBHandler=function(){
-		MainScreen.instance.popL.visible=false;
-		this.contentL.removeChildren();
-		var teamScreen=new TeamScreen();
-		this.contentL.addChild(teamScreen);
-		this.indexB.icon.gray=true;
-		this.teamB.icon.gray=false;
-		this.myB.icon.gray=true;
-		this.indexB.unSelected();
-		this.teamB.selected();
-		this.myB.unSelected();
-	}
-
-	__proto.myBHandler=function(){
-		MainScreen.instance.popL.visible=false;
-		this.contentL.removeChildren();
-		var myScreen=new MyScreen();
-		this.contentL.addChild(myScreen);
-		this.indexB.icon.gray=true;
-		this.teamB.icon.gray=true;
-		this.myB.icon.gray=false;
-		this.indexB.unSelected();
-		this.teamB.unSelected();
-		this.myB.selected();
-	}
-
-	__proto.hideBusy=function(){
-		MainScreen.instance.hideBusy();
-	}
-
-	HallScreen.instance=null;
-	return HallScreen;
-})(Sprite)
-
-
-//class com.cocoadd.index.IndexScreen extends laya.display.Sprite
-var IndexScreen=(function(_super){
-	function IndexScreen(){
+//class com.cocoadd.deposit.DepositScreen extends laya.display.Sprite
+var DepositScreen=(function(_super){
+	function DepositScreen(){
 		this.manage_B=null;
 		this.NFTS_B=null;
 		this.NFTSS_B=null;
 		this.NFTSSS_B=null;
-		IndexScreen.__super.call(this);
-		IndexScreen.instance=this;
+		DepositScreen.__super.call(this);
+		DepositScreen.instance=this;
 		var splishI=new Image("../assets/ui/indexBg.png");
 		this.addChild(splishI);
 		this.manage_B=new MyButton("管 理",300,60,"#FFFFFF","#FFFFFF",28,"");
@@ -15304,8 +15217,8 @@ var IndexScreen=(function(_super){
 		this.NFTSSS_B.on("click",this,this.NFTSSS_BHandler);
 	}
 
-	__class(IndexScreen,'com.cocoadd.index.IndexScreen',_super);
-	var __proto=IndexScreen.prototype;
+	__class(DepositScreen,'com.cocoadd.deposit.DepositScreen',_super);
+	var __proto=DepositScreen.prototype;
 	__proto.manage_BHandler=function(){
 		HallScreen.instance.bottomMenu.visible=false;
 		var manageScreen=new ManageScreen();
@@ -15336,6 +15249,148 @@ var IndexScreen=(function(_super){
 		MainScreen.instance.hideBusy();
 	}
 
+	DepositScreen.instance=null;
+	return DepositScreen;
+})(Sprite)
+
+
+//class com.cocoadd.HallScreen extends laya.display.Sprite
+var HallScreen=(function(_super){
+	function HallScreen(){
+		this.contentL=null;
+		this.bottomMenu=null;
+		this.indexB=null;
+		this.depositB=null;
+		this.teamB=null;
+		this.myB=null;
+		HallScreen.__super.call(this);
+		HallScreen.instance=this;
+		this.contentL=new Sprite();
+		this.contentL.size(Laya.stage.width,Laya.stage.height*BaseConfig.sc-100);
+		this.addChild(this.contentL);
+		this.bottomMenu=new Sprite();
+		this.bottomMenu.size(Laya.stage.width,111);
+		this.addChild(this.bottomMenu);
+		this.bottomMenu.y=Laya.stage.height-this.bottomMenu.height;
+		this.indexB=new MyIconButton("../assets/ui/ic_index2.png","introduce",Laya.stage.width/4,100,22,"#999999");
+		this.bottomMenu.addChild(this.indexB);
+		this.indexB.y=5;
+		this.indexB.on("click",this,this.indexBHandler);
+		this.indexB.icon.gray=true;
+		this.depositB=new MyIconButton("../assets/ui/ic_Deposit2.png","Deposit",Laya.stage.width/4,100,22,"#999999");
+		this.bottomMenu.addChild(this.depositB);
+		this.depositB.x=this.indexB.x+this.indexB.width;
+		this.depositB.y=5;
+		this.depositB.on("click",this,this.depositBHandler);
+		this.depositB.icon.gray=true;
+		this.teamB=new MyIconButton("../assets/ui/ic_team2.png","Team",Laya.stage.width/4,100,22,"#999999");
+		this.bottomMenu.addChild(this.teamB);
+		this.teamB.x=this.depositB.x+this.depositB.width;
+		this.teamB.y=5;
+		this.teamB.on("click",this,this.teamBHandler);
+		this.teamB.icon.gray=true;
+		this.myB=new MyIconButton("../assets/ui/ic_mine2.png","Mine",Laya.stage.width/4,100,22,"#999999");
+		this.bottomMenu.addChild(this.myB);
+		this.myB.x=this.teamB.x+this.teamB.width;
+		this.myB.y=5;
+		this.myB.on("click",this,this.myBHandler);
+		this.myB.icon.gray=true;
+		this.indexBHandler();
+	}
+
+	__class(HallScreen,'com.cocoadd.HallScreen',_super);
+	var __proto=HallScreen.prototype;
+	__proto.indexBHandler=function(){
+		MainScreen.instance.popL.visible=false;
+		this.contentL.removeChildren();
+		var indexScreen=new IndexScreen();
+		this.contentL.addChild(indexScreen);
+		this.indexB.icon.gray=false;
+		this.depositB.icon.gray=true;
+		this.teamB.icon.gray=true;
+		this.myB.icon.gray=true;
+		this.indexB.selected();
+		this.depositB.unSelected();
+		this.teamB.unSelected();
+		this.myB.unSelected();
+	}
+
+	__proto.depositBHandler=function(){
+		MainScreen.instance.popL.visible=false;
+		this.contentL.removeChildren();
+		var depositScreen=new DepositScreen();
+		this.contentL.addChild(depositScreen);
+		this.indexB.icon.gray=true;
+		this.depositB.icon.gray=false;
+		this.teamB.icon.gray=true;
+		this.myB.icon.gray=true;
+		this.indexB.unSelected();
+		this.depositB.selected();
+		this.teamB.unSelected();
+		this.myB.unSelected();
+	}
+
+	__proto.teamBHandler=function(){
+		MainScreen.instance.popL.visible=false;
+		this.contentL.removeChildren();
+		var teamScreen=new TeamScreen();
+		this.contentL.addChild(teamScreen);
+		this.indexB.icon.gray=true;
+		this.depositB.icon.gray=true;
+		this.teamB.icon.gray=false;
+		this.myB.icon.gray=true;
+		this.indexB.unSelected();
+		this.depositB.unSelected();
+		this.teamB.selected();
+		this.myB.unSelected();
+	}
+
+	__proto.myBHandler=function(){
+		MainScreen.instance.popL.visible=false;
+		this.contentL.removeChildren();
+		var myScreen=new MyScreen();
+		this.contentL.addChild(myScreen);
+		this.indexB.icon.gray=true;
+		this.depositB.icon.gray=true;
+		this.teamB.icon.gray=true;
+		this.myB.icon.gray=false;
+		this.indexB.unSelected();
+		this.depositB.unSelected();
+		this.teamB.unSelected();
+		this.myB.selected();
+	}
+
+	__proto.hideBusy=function(){
+		MainScreen.instance.hideBusy();
+	}
+
+	HallScreen.instance=null;
+	return HallScreen;
+})(Sprite)
+
+
+//class com.cocoadd.index.IndexScreen extends laya.display.Sprite
+var IndexScreen=(function(_super){
+	function IndexScreen(){
+		this.manage_B=null;
+		this.NFTS_B=null;
+		this.NFTSS_B=null;
+		this.NFTSSS_B=null;
+		this.panel=null;
+		IndexScreen.__super.call(this);
+		IndexScreen.instance=this;
+		this.size(this.stage.width,this.stage.height-111);
+		this.panel=new Panel();
+		this.panel.size(this.width,this.height);
+		this.panel.vScrollBarSkin="";
+		this.panel.vScrollBar.visible=false;
+		this.panel.vScrollBar.elasticDistance=300;
+		this.addChild(this.panel);
+		var index=new Image("../assets/ui/index.png");
+		this.panel.addChild(index);
+	}
+
+	__class(IndexScreen,'com.cocoadd.index.IndexScreen',_super);
 	IndexScreen.instance=null;
 	return IndexScreen;
 })(Sprite)
@@ -15486,8 +15541,6 @@ var MyScreen=(function(_super){
 		MyScreen.__super.call(this);
 		MyScreen.instance=this;
 		this.size(Laya.stage.width,Laya.stage.height);
-		var bgImg=new Image("hall/bg4.png");
-		this.addChild(bgImg);
 		getPledgeOrderIds();
 	}
 
@@ -16268,7 +16321,7 @@ var MainScreen=(function(_super){
 		this.busyL.visible=false;
 		this.uiLoading=new UiLoading();
 		this.addChild(this.uiLoading);
-		Laya.loader.load([{url:"../assets/texture/hall.json",type:"atlas"}],Handler.create(this,this.onLoaded),Handler.create(this,this.loadedProgress));
+		Laya.loader.load([{url:"../assets/texture/hall.json",type:"atlas"},{url:"../assets/ui/index.png",type:"image"}],Handler.create(this,this.onLoaded),Handler.create(this,this.loadedProgress));
 	}
 
 	__class(MainScreen,'com.MainScreen',_super);
@@ -22474,7 +22527,7 @@ var TextArea=(function(_super){
 })(TextInput)
 
 
-	Laya.__init([LoaderManager,EventDispatcher,Render,Browser,Timer,LocalStorage]);
+	Laya.__init([LoaderManager,EventDispatcher,Render,Browser,LocalStorage,Timer]);
 	/**LayaGameStart**/
 	new WGDDapp();
 
